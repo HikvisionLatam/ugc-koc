@@ -1,0 +1,355 @@
+/**
+ * src/styles.css
+ * Sistema de estilos para el iframe — CSS Variables, sin Google Fonts.
+ * System font stack para máxima velocidad de carga.
+ *
+ * Regla: todo el CSS < 8KB para que el bundle gzipped < 200KB total.
+ */
+
+/* ── Tokens ─────────────────────────────────────── */
+:root {
+  --ease-spring:  cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out:     cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-smooth:  cubic-bezier(0.4, 0, 0.2, 1);
+
+  --white:    #ffffff;
+  --black:    #000000;
+  --surface:  #111116;
+  --elevated: #1a1a22;
+  --border:   rgba(255,255,255,.08);
+
+  --text:     #f0f0f5;
+  --muted:    #8888a0;
+  --subtle:   #44445a;
+
+  --tiktok:   #ff0050;
+  --accent:   #e63946;
+  --success:  #22c55e;
+}
+
+/* ── Reset mínimo ───────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+img, video { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+/* ── Root ───────────────────────────────────────── */
+.ugc-root {
+  font-family:
+    -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+  color: var(--text);
+  line-height: 1.5;
+  width: 100%;
+  min-height: 200px;
+  position: relative;
+}
+
+/* ── Loading ────────────────────────────────────── */
+@keyframes ugc-pulse {
+  0%, 80%, 100% { transform: scale(.6); opacity: .4; }
+  40%           { transform: scale(1);   opacity: 1; }
+}
+
+.ugc-loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 200px;
+}
+
+.ugc-loading-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--muted);
+  border-radius: 50%;
+  animation: ugc-pulse 1.2s ease-in-out infinite;
+}
+
+.ugc-loading-dot:nth-child(2) { animation-delay: .15s; }
+.ugc-loading-dot:nth-child(3) { animation-delay: .30s; }
+
+/* ── Error ──────────────────────────────────────── */
+.ugc-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 200px;
+  color: var(--subtle);
+  text-align: center;
+  padding: 24px;
+}
+
+.ugc-error svg { opacity: .4; }
+.ugc-error span { font-size: 14px; font-weight: 500; color: var(--muted); }
+.ugc-error small { font-size: 12px; opacity: .6; }
+
+/* ── Empty ──────────────────────────────────────── */
+.ugc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 200px;
+  color: var(--subtle);
+  text-align: center;
+  padding: 24px;
+}
+
+.ugc-empty svg { opacity: .25; }
+.ugc-empty p { font-size: 14px; color: var(--muted); }
+.ugc-empty small { font-size: 12px; opacity: .5; }
+
+/* ── Slider ─────────────────────────────────────── */
+.ugc-slider {
+  position: relative;
+  width: 100%;
+  outline: none;
+}
+
+.ugc-slider:focus-visible {
+  outline: 2px solid var(--tiktok);
+  outline-offset: 2px;
+  border-radius: 8px;
+}
+
+/* ── Slide ──────────────────────────────────────── */
+.ugc-slide {
+  width: 100%;
+  position: relative;
+}
+
+.ugc-slide-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--surface);
+}
+
+/* ── Thumbnail ──────────────────────────────────── */
+.ugc-thumb-wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--elevated);
+  overflow: hidden;
+}
+
+.ugc-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 400ms var(--ease-smooth);
+}
+
+.ugc-slider:hover .ugc-thumb {
+  transform: scale(1.02);
+}
+
+.ugc-thumb-fallback {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--subtle);
+}
+
+/* ── Overlay ────────────────────────────────────── */
+.ugc-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.65) 0%, transparent 50%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 16px;
+}
+
+.ugc-play-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--tiktok);
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 200ms var(--ease-spring), box-shadow 200ms;
+  box-shadow: 0 4px 16px rgba(255,0,80,.35);
+}
+
+.ugc-play-btn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(255,0,80,.5);
+}
+
+.ugc-play-btn:active {
+  transform: scale(.96);
+}
+
+/* ── TikTok badge ──────────────────────────────── */
+.ugc-tiktok-badge {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  background: var(--tiktok);
+  color: var(--white);
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+
+/* ── Info ───────────────────────────────────────── */
+.ugc-info {
+  padding: 12px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.ugc-description {
+  font-size: 13px;
+  color: var(--text);
+  line-height: 1.45;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ugc-stats {
+  display: flex;
+  gap: 12px;
+}
+
+.ugc-stat {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.ugc-product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  transition: gap 150ms var(--ease-spring);
+  width: fit-content;
+}
+
+.ugc-product-link:hover { gap: 8px; color: #ff4d5a; }
+
+/* ── Flechas ────────────────────────────────────── */
+.ugc-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(17,17,22,.85);
+  border: 1px solid var(--border);
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  transition: all 200ms var(--ease-spring);
+  backdrop-filter: blur(4px);
+}
+
+.ugc-arrow:hover {
+  background: rgba(26,26,34,.95);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.ugc-arrow:active {
+  transform: translateY(-50%) scale(.95);
+}
+
+.ugc-arrow-prev { left: 8px; }
+.ugc-arrow-next { right: 8px; }
+
+/* ── Dots ───────────────────────────────────────── */
+@keyframes dot-active {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.5); }
+  100% { transform: scale(1); }
+}
+
+.ugc-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 0 4px;
+}
+
+.ugc-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--subtle);
+  transition: all 250ms var(--ease-spring);
+}
+
+.ugc-dot-active {
+  background: var(--tiktok);
+  width: 18px;
+  border-radius: 3px;
+  animation: dot-active 300ms var(--ease-spring);
+}
+
+/* ── Contador ───────────────────────────────────── */
+.ugc-counter {
+  text-align: center;
+  font-size: 11px;
+  color: var(--subtle);
+  padding-bottom: 8px;
+}
+
+/* ── Responsive ─────────────────────────────────── */
+@media (min-width: 640px) {
+  .ugc-thumb-wrapper { aspect-ratio: 16 / 9; }
+  .ugc-info          { padding: 14px 20px 20px; }
+  .ugc-description   { -webkit-line-clamp: 3; }
+  .ugc-arrow         { width: 40px; height: 40px; }
+}
+
+@media (min-width: 1024px) {
+  .ugc-slide-inner {
+    flex-direction: row;
+    max-height: 280px;
+  }
+  .ugc-thumb-wrapper {
+    width: 480px;
+    flex-shrink: 0;
+    aspect-ratio: auto;
+    height: 100%;
+  }
+  .ugc-info {
+    flex: 1;
+    justify-content: center;
+    padding: 24px;
+  }
+  .ugc-description { font-size: 14px; -webkit-line-clamp: 5; }
+}

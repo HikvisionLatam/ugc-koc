@@ -1,0 +1,42 @@
+# Dependencias
+node_modules/
+
+# Build outputs
+src/admin/.next/
+src/admin/out/
+src/admin/node_modules/
+src/iframe/dist/
+src/iframe/node_modules/
+
+# Archivos temporales
+src/admin.tar
+src/admin-src.tar
+
+# Variables de entorno (NUNCA subir)
+.env
+.env.local
+.env.*.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+npm-debug.log*
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# Secrets
+*.pem
+*.key
+credentials.json
+get_password.sh

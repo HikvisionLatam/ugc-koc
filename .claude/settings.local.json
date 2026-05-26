@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx skills *)",
+      "Bash(curl *)",
+      "Bash(ssh *)",
+      "Bash(sshpass *)",
+      "Bash(pip show *)",
+      "Bash(pip install *)",
+      "Bash(python3 *)",
+      "Bash(pip3 install *)",
+      "Bash(C:/Users/sebastian.grajales/AppData/Local/Programs/Python/Python310/python.exe *)",
+      "Bash(chmod +x \"C:/Users/sebastian.grajales/Documents/ME/CODE/ugc-koc/get_password.sh\")",
+      "Bash(export DISPLAY=:0)",
+      "Bash(export SSH_ASKPASS_REQUIRE=force)",
+      "Bash(export SSH_ASKPASS=\"C:/Users/sebastian.grajales/Documents/ME/CODE/ugc-koc/get_password.sh\")",
+      "Bash(npm install *)",
+      "Bash(npm run *)",
+      "Bash(node -e \"const ts = require\\('./node_modules/typescript'\\); const config = ts.readConfigFile\\('./tsconfig.json', ts.sys.readFile\\); console.log\\(JSON.stringify\\(config.config.compilerOptions?.paths, null, 2\\)\\)\")",
+      "Bash(sudo -S ssh -o StrictHostKeyChecking=no -o ProxyCommand=\"/c/cloudflare/cloudflared access ssh --hostname ssh.hikvisionlatam.tech\" marketing-digital@ssh.hikvisionlatam.tech \"pm2 list 2>/dev/null && echo '---' && ls /var/www/\")",
+      "Bash(cmd *)",
+      "Bash(scp -i \"C:\\\\Users\\\\sebastian.grajales\\\\.ssh\\\\claude_ed25519\" -o StrictHostKeyChecking=no -o ProxyCommand=\"/c/cloudflare/cloudflared.exe access ssh --hostname ssh.hikvisionlatam.tech\" -r \"C:\\\\Users\\\\sebastian.grajales\\\\Documents\\\\ME\\\\CODE\\\\ugc-koc\\\\src\\\\admin\" marketing-digital@ssh.hikvisionlatam.tech:/tmp/ugc-admin-tmp)",
+      "Bash(tar -cf admin.tar admin/)",
+      "Bash(tar --exclude='admin/node_modules' --exclude='admin/.next' --exclude='admin/node_modules' -cf admin-src.tar admin/)",
+      "Bash(scp -i \"C:\\\\Users\\\\sebastian.grajales\\\\.ssh\\\\claude_ed25519\" -o StrictHostKeyChecking=no -o ProxyCommand=\"/c/cloudflare/cloudflared.exe access ssh --hostname ssh.hikvisionlatam.tech\" \"C:\\\\Users\\\\sebastian.grajales\\\\Documents\\\\ME\\\\CODE\\\\ugc-koc\\\\src\\\\admin-src.tar\" marketing-digital@ssh.hikvisionlatam.tech:/tmp/ugc-admin-src.tar)",
+      "Bash(gh auth *)",
+      "PowerShell(gh auth *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git reset *)",
+      "Bash(git rm *)"
+    ]
+  }
+}
