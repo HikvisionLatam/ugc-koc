@@ -29,7 +29,20 @@
       "Bash(git branch *)",
       "Bash(git add *)",
       "Bash(git reset *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(git config *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(Get-ChildItem \"C:\\\\Users\\\\sebastian.grajales\\\\Documents\\\\ME\\\\CODE\\\\ugc-koc\" -Depth 1)",
+      "Bash(Select-Object Name, LastWriteTime)",
+      "Bash(dir \"C:\\\\Users\\\\sebastian.grajales\\\\Documents\\\\ME\\\\CODE\\\\ugc-koc\\\\src\\\\admin\" /b)",
+      "Skill(impeccable)",
+      "Bash(npx tsc *)",
+      "Bash(npx next *)",
+      "Bash(scp *)",
+      "Bash(npx vite *)",
+      "Bash(Start-Process powershell *)",
+      "Bash(Write-Output \"Admin server launched\")"
     ]
   }
 }

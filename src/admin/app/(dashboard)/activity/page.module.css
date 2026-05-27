@@ -1,0 +1,147 @@
+.page {
+  padding: 40px 48px;
+  max-width: 760px;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.logRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.logRow:last-child {
+  border-bottom: none;
+}
+
+.logIcon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.icon_publish {
+  background: var(--success-bg);
+  color: var(--success);
+}
+
+.icon_edit {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.icon_delete {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.icon_user {
+  background: var(--warning-bg);
+  color: var(--warning);
+}
+
+.icon_default {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.logContent {
+  flex: 1;
+  min-width: 0;
+}
+
+.logTop {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 3px;
+  flex-wrap: wrap;
+}
+
+.logLabel {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+}
+
+.logDetail {
+  font-size: 12px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.logBottom {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logUser {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
+}
+
+.logTime {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 56px;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.empty p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 24px 20px;
+  }
+}

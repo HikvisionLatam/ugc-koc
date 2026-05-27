@@ -1,144 +1,135 @@
 /* app/dashboard/page.module.css */
 
 .root {
-  min-height: 100vh;
-  background: var(--bg-base);
-  display: flex;
+  min-height:     100vh;
+  background:     var(--bg-base);
+  display:        flex;
   flex-direction: column;
 }
 
 .main {
-  flex: 1;
-  padding: var(--space-8);
+  flex:      1;
+  padding:   var(--space-8);
   max-width: 1400px;
-  width: 100%;
-  margin: 0 auto;
+  width:     100%;
+  margin:    0 auto;
 }
 
-/* Stats */
+/* Stats skeletons */
 .statsGrid {
-  display: grid;
+  display:               grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: var(--space-4);
-  margin-bottom: var(--space-8);
+  gap:                   var(--space-4);
+  margin-bottom:         var(--space-8);
 }
 
 .statCard {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  background:    var(--bg-surface);
+  border:        1px solid var(--border);
   border-radius: var(--radius-md);
-  padding: var(--space-5);
+  padding:       var(--space-5);
 }
 
 .skeletonLabel {
-  height: 10px;
-  width: 80px;
+  height:        10px;
+  width:         70px;
   margin-bottom: var(--space-3);
+  border-radius: var(--radius-sm);
 }
 
 .skeletonValue {
-  height: 32px;
-  width: 60px;
+  height:        28px;
+  width:         48px;
   margin-bottom: var(--space-2);
+  border-radius: var(--radius-sm);
 }
 
 .skeletonSub {
-  height: 10px;
-  width: 100px;
+  height:        10px;
+  width:         90px;
+  border-radius: var(--radius-sm);
 }
 
 /* Content */
 .content {
-  background: var(--bg-surface);
-  border: 1px solid var(--border);
+  background:    var(--bg-surface);
+  border:        1px solid var(--border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow:      hidden;
 }
 
 .tabs {
-  display: flex;
-  gap: 0;
+  display:       flex;
+  gap:           0;
   border-bottom: 1px solid var(--border);
-  padding: 0 var(--space-6);
-  background: var(--bg-elevated);
+  padding:       0 var(--space-6);
+  background:    var(--bg-surface);
 }
 
 .tab {
-  padding: var(--space-4) var(--space-5);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
-  background: none;
-  border: none;
+  padding:       12px var(--space-5);
+  font-size:     13px;
+  font-weight:   500;
+  color:         var(--text-muted);
+  background:    none;
+  border:        none;
   border-bottom: 2px solid transparent;
-  cursor: pointer;
-  transition: all 200ms var(--ease-smooth);
+  cursor:        pointer;
+  transition:    all 150ms var(--ease-smooth);
   margin-bottom: -1px;
+  font-family:   var(--font-sans);
+  text-decoration: none;
+  display:       inline-flex;
+  align-items:   center;
 }
 
-.tab:hover {
-  color: var(--text-secondary);
-}
+.tab:hover { color: var(--text-secondary); }
 
 .tabActive {
-  color: var(--text-primary);
-  border-bottom-color: var(--accent);
+  color:             var(--text-primary);
+  border-bottom-color: #111111;
 }
 
-.panels {
-  padding: var(--space-6);
-}
+.panels { padding: var(--space-6); }
 
-.panel {
-  animation: fadeIn 200ms var(--ease-out);
-}
-
-.panelHidden {
-  display: none;
-}
+.panel { animation: fadeIn 180ms var(--ease-out); }
 
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
+  from { opacity: 0; transform: translateY(6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 
 /* Video table skeleton */
 .skeletonRow {
-  display: flex;
+  display:     flex;
   align-items: center;
-  gap: var(--space-4);
-  padding: var(--space-4) 0;
+  gap:         var(--space-4);
+  padding:     var(--space-4) 0;
   border-bottom: 1px solid var(--border-muted);
 }
 
 .skeletonThumb {
-  width: 64px;
-  height: 36px;
+  width:         56px;
+  height:        32px;
   border-radius: var(--radius-sm);
-  flex-shrink: 0;
+  flex-shrink:   0;
 }
 
 .skeletonMeta {
-  flex: 1;
-  display: flex;
+  flex:           1;
+  display:        flex;
   flex-direction: column;
-  gap: var(--space-2);
+  gap:            var(--space-2);
 }
 
-.skeletonTitle {
-  height: 14px;
-  width: 60%;
-}
-
-.skeletonSubtitle {
-  height: 12px;
-  width: 30%;
-}
+.skeletonTitle    { height: 13px; width: 55%; border-radius: var(--radius-sm); }
+.skeletonSubtitle { height: 11px; width: 28%; border-radius: var(--radius-sm); }
 
 /* Responsive */
 @media (max-width: 900px) {
   .statsGrid { grid-template-columns: repeat(2, 1fr); }
-  .main { padding: var(--space-4); }
+  .main      { padding: var(--space-4); }
+  .panels    { padding: var(--space-4); }
 }
 
 @media (max-width: 600px) {

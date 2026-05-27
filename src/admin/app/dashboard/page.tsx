@@ -1,8 +1,5 @@
-/**
- * app/dashboard/page.tsx
- * Dashboard principal — stats + lista de videos + agregar nuevo
- */
 import { Suspense } from 'react'
+import Link from 'next/link'
 import { Stats } from '@/components/Stats'
 import { VideoTable } from '@/components/VideoTable'
 import { AddVideoForm } from '@/components/AddVideoForm'
@@ -11,40 +8,47 @@ import styles from './page.module.css'
 
 export const dynamic = 'force-dynamic'
 
-export default async function DashboardPage() {
+export default async function DashboardPage({
+  searchParams,
+}: {
+  searchParams: { tab?: string }
+}) {
+  const activeTab = searchParams.tab === 'add' ? 'add' : 'videos'
+
   return (
     <div className={styles.root}>
       <Header />
 
       <main className={styles.main}>
-        {/* Stats overview */}
         <Suspense fallback={<StatsSkeleton />}>
           <Stats />
         </Suspense>
 
-        {/* Content — tabs: Lista | Agregar */}
         <div className={styles.content}>
           <div className={styles.tabs}>
-            <button className={`${styles.tab} ${styles.tabActive}`}>
+            <Link
+              href="/dashboard"
+              className={`${styles.tab} ${activeTab === 'videos' ? styles.tabActive : ''}`}
+            >
               Videos
-            </button>
-            <button className={styles.tab}>
-              Agregar nuevo
-            </button>
+            </Link>
+            <Link
+              href="/dashboard?tab=add"
+              className={`${styles.tab} ${activeTab === 'add' ? styles.tabActive : ''}`}
+            >
+              Agregar video
+            </Link>
           </div>
 
           <div className={styles.panels}>
-            {/* Panel: Lista de videos */}
-            <section className={styles.panel}>
-              <Suspense fallback={<VideoTableSkeleton />}>
-                <VideoTable />
-              </Suspense>
-            </section>
-
-            {/* Panel: Agregar video */}
-            <section className={`${styles.panel} ${styles.panelHidden}`}>
-              <AddVideoForm />
-            </section>
+            <div className={styles.panel}>
+              {activeTab === 'videos' && (
+                <Suspense fallback={<VideoTableSkeleton />}>
+                  <VideoTable />
+                </Suspense>
+              )}
+              {activeTab === 'add' && <AddVideoForm />}
+            </div>
           </div>
         </div>
       </main>
@@ -52,7 +56,6 @@ export default async function DashboardPage() {
   )
 }
 
-// ── Skeletons ──────────────────────────────────────
 function StatsSkeleton() {
   return (
     <div className={styles.statsGrid}>

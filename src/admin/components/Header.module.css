@@ -1,81 +1,82 @@
 /* components/Header.module.css */
 
 .header {
-  height: 60px;
-  background: var(--bg-surface);
+  height:        56px;
+  background:    rgba(255,255,255,.92);
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  padding: 0 var(--space-8);
-  gap: var(--space-8);
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  backdrop-filter: blur(8px);
+  display:       flex;
+  align-items:   center;
+  padding:       0 var(--space-8);
+  gap:           var(--space-8);
+  position:      sticky;
+  top:           0;
+  z-index:       50;
+  backdrop-filter: blur(12px);
 }
 
 .brand {
-  display: flex;
+  display:     flex;
   align-items: center;
-  gap: var(--space-3);
+  gap:         var(--space-3);
+  flex-shrink: 0;
 }
 
 .brandText {
-  display: flex;
+  display:     flex;
   flex-direction: column;
   line-height: 1.2;
 }
 
 .brandName {
-  font-size: 15px;
-  font-weight: 700;
-  color: var(--text-primary);
+  font-size:   14px;
+  font-weight: 600;
+  color:       var(--text-primary);
   letter-spacing: -.01em;
 }
 
 .brandSub {
-  font-size: 11px;
-  font-weight: 500;
-  color: var(--text-muted);
+  font-size:      10px;
+  font-weight:    500;
+  color:          var(--text-muted);
   text-transform: uppercase;
-  letter-spacing: .04em;
+  letter-spacing: .06em;
 }
 
 .nav {
-  display: flex;
+  display:     flex;
   align-items: center;
-  gap: var(--space-1);
-  flex: 1;
+  gap:         2px;
+  flex:        1;
 }
 
 .navLink {
-  padding: var(--space-2) var(--space-4);
-  font-size: 14px;
-  font-weight: 500;
-  color: var(--text-muted);
+  padding:       6px var(--space-3);
+  font-size:     13px;
+  font-weight:   500;
+  color:         var(--text-secondary);
   border-radius: var(--radius-sm);
-  transition: all 150ms var(--ease-smooth);
+  transition:    all 120ms var(--ease-smooth);
   text-decoration: none;
 }
 
 .navLink:hover {
-  color: var(--text-primary);
-  background: var(--bg-hover);
+  color:      var(--text-primary);
+  background: var(--bg-elevated);
 }
 
 .navLinkActive {
-  color: var(--text-primary);
+  color:      var(--text-primary);
   background: var(--bg-elevated);
 }
 
 .actions {
-  display: flex;
+  display:     flex;
   align-items: center;
-  gap: var(--space-3);
+  gap:         var(--space-3);
   margin-left: auto;
 }
 
 @media (max-width: 768px) {
-  .header { padding: 0 var(--space-4); gap: var(--space-4); }
+  .header  { padding: 0 var(--space-4); gap: var(--space-4); }
   .brandSub, .nav { display: none; }
 }

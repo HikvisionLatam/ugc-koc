@@ -1,15 +1,17 @@
 import { useEffect, useState } from 'react'
-import { VideoSlider } from './components/VideoSlider'
+import { SliderClassic } from './components/SliderClassic'
+import { SliderPremium } from './components/SliderPremium'
 import type { Video } from './types'
 
 interface AppProps {
   site:    string
   landing: string
   apiUrl:  string
+  style:   'classic' | 'premium'
 }
 
-export function App({ site, landing, apiUrl }: AppProps) {
-  const [videos, setVideos] = useState<Video[]>([])
+export function App({ site, landing, apiUrl, style }: AppProps) {
+  const [videos, setVideos]   = useState<Video[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError]     = useState<string | null>(null)
 
@@ -22,11 +24,7 @@ export function App({ site, landing, apiUrl }: AppProps) {
 
     const url = `${apiUrl}?site=${encodeURIComponent(site)}&landing=${encodeURIComponent(landing)}`
 
-    fetch(url, {
-      headers: {
-        'Accept': 'application/json',
-      },
-    })
+    fetch(url, { headers: { Accept: 'application/json' } })
       .then(r => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json()
@@ -47,11 +45,15 @@ export function App({ site, landing, apiUrl }: AppProps) {
 
   return (
     <div className="ugc-root">
-      <VideoSlider videos={videos} />
+      {style === 'premium'
+        ? <SliderPremium videos={videos} />
+        : <SliderClassic videos={videos} />
+      }
     </div>
   )
 }
 
+// ── Loading skeleton ────────────────────────────────────────────────────
 function LoadingState() {
   return (
     <div className="ugc-loading">

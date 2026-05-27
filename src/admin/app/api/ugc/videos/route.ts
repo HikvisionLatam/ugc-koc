@@ -47,9 +47,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Faltan campos requeridos' }, { status: 400 })
   }
 
-  // Extraer tiktok_id de la URL
-  const tiktokId = tiktok_url.split('/video/').pop()
-  if (!tiktokId) {
+  if (!tiktok_url.includes('/video/')) {
     return NextResponse.json({ error: 'URL de TikTok inválida' }, { status: 400 })
   }
 
@@ -75,10 +73,10 @@ export async function POST(req: NextRequest) {
       .from('videos')
       .insert({
         tiktok_url,
-        tiktok_id:  tiktokId,
-        description: body.description ?? null,
+        // tiktok_id is GENERATED ALWAYS AS — do not insert
+        description:   body.description   ?? null,
         thumbnail_url: body.thumbnail_url ?? null,
-        video_url:  body.video_url ?? null,
+        video_url:     body.video_url     ?? null,
         status,
       })
       .select('id')

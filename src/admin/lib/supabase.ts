@@ -6,8 +6,8 @@
 import { createClient, SupabaseClient } from '@supabase/supabase-js'
 
 // Lazy singletons — solo se inicializan cuando el primer request las pide
-let _admin:   SupabaseClient | null = null
-let _public:  SupabaseClient | null = null
+let _admin:  SupabaseClient | null = null
+let _public: SupabaseClient | null = null
 
 function getUrl() {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -15,7 +15,7 @@ function getUrl() {
   return url
 }
 
-// Solo servidor — usa service_role_key
+// Solo servidor — usa service_role_key (bypass RLS)
 export const supabaseAdmin = (): SupabaseClient => {
   if (!_admin) {
     _admin = createClient(getUrl(), process.env.SUPABASE_SERVICE_ROLE_KEY!, {
@@ -38,40 +38,42 @@ export const supabasePublic = (): SupabaseClient => {
 // ── Types ──────────────────────────────────────────────────────────────────────
 
 export interface Website {
-  id:       string
-  name:     string
-  url:      string
-  flag:     string
-  lang:     string
-  active:   boolean
-  created_at: string
-}
-
-export interface Landing {
   id:         string
-  website_id: string
-  slug:       string
   name:       string
-  path:       string | null
+  url:        string
+  flag:       string
+  lang:       string
   active:     boolean
   created_at: string
 }
 
+export interface Landing {
+  id:           string
+  website_id:   string
+  slug:         string
+  name:         string
+  path:         string | null
+  landing_type: 'product' | 'homepage'
+  active:       boolean
+  created_at:   string
+}
+
 export interface Video {
-  id:              string
-  tiktok_url:      string
-  tiktok_id:       string
-  description:     string | null
-  thumbnail_url:   string | null
-  video_url:       string | null
-  views:           number
-  likes:           number
-  comments:        number
-  shares:          number
+  id:               string
+  tiktok_url:       string
+  tiktok_id:        string   // GENERATED column — no insertar manualmente
+  creator_id:       string | null
+  description:      string | null
+  thumbnail_url:    string | null
+  video_url:        string | null
+  views:            number
+  likes:            number
+  comments:         number
+  shares:           number
   stats_updated_at: string | null
-  status:          'active' | 'paused' | 'deleted'
-  created_at:      string
-  created_by:      string | null
+  status:           'active' | 'paused' | 'draft'
+  created_at:       string
+  created_by:       string | null
 }
 
 export interface VideoLanding {
@@ -84,39 +86,50 @@ export interface VideoLanding {
   created_at:    string
 }
 
+export interface Creator {
+  id:               string
+  tiktok_username:  string
+  display_name:     string | null
+  country_code:     string
+  country_name:     string
+  created_at:       string
+}
+
 export interface IframeVideo {
-  id:            string
-  tiktok_url:    string
-  tiktok_id:     string
-  description:   string | null
-  thumbnail_url: string | null
-  video_url:     string | null
-  views:         number
-  likes:         number
-  comments:      number
-  shares:        number
-  link_producto: string | null
-  position:      number
-  landing_slug:  string
-  landing_name:  string
-  website_id:    string
-  lang:          string
+  id:                   string
+  tiktok_url:           string
+  tiktok_id:            string
+  description:          string | null
+  thumbnail_url:        string | null
+  video_url:            string | null
+  views:                number
+  likes:                number
+  shares:               number
+  link_producto:        string | null
+  position:             number
+  landing_slug:         string
+  landing_name:         string
+  landing_type:         'product' | 'homepage'
+  website_id:           string
+  lang:                 string
+  creator_username:     string | null
+  creator_name:         string | null
+  creator_country:      string | null
+  creator_country_name: string | null
 }
 
 export interface UserProfile {
-  id:              string
-  full_name:       string | null
-  role:            'admin' | 'editor' | 'viewer'
-  allowed_websites: string[] | null
-  created_at:      string
+  id:         string
+  full_name:  string | null
+  created_at: string
 }
 
 export interface ActivityLog {
-  id:         string
-  user_id:    string | null
-  action:     string
+  id:          string
+  user_id:     string | null
+  action:      string
   entity_type: string | null
-  entity_id:  string | null
-  metadata:   Record<string, unknown> | null
-  created_at: string
+  entity_id:   string | null
+  metadata:    Record<string, unknown> | null
+  created_at:  string
 }

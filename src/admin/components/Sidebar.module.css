@@ -1,0 +1,133 @@
+.sidebar {
+  width: 220px;
+  min-height: 100vh;
+  background: #FFFFFF;
+  border-right: 1px solid #EAEAEA;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 40;
+}
+
+.logo {
+  height: 56px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #EAEAEA;
+  flex-shrink: 0;
+}
+
+.logoMark {
+  width: 22px;
+  height: 22px;
+  background: #C8102E;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.logoText {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.logoName {
+  font-size: 12px;
+  font-weight: 600;
+  color: #111111;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+
+.logoBrand {
+  font-size: 10px;
+  color: #ABABAB;
+  line-height: 1.2;
+}
+
+.nav {
+  padding: 10px 8px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #787774;
+  text-decoration: none;
+  transition: background 120ms, color 120ms;
+}
+
+.navItem:hover {
+  background: #F0EFED;
+  color: #111111;
+}
+
+.navActive {
+  background: #F0EFED;
+  color: #111111;
+}
+
+.sidebarFooter {
+  padding: 12px 8px;
+  border-top: 1px solid #EAEAEA;
+  flex-shrink: 0;
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: default;
+}
+
+.userAvatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FDEBEC;
+  color: #9F2F2D;
+  font-size: 10px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.userName {
+  font-size: 12px;
+  font-weight: 500;
+  color: #111111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userRole {
+  font-size: 10px;
+  color: #ABABAB;
+  text-transform: capitalize;
+}

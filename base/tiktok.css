@@ -1,0 +1,280 @@
+.innerVideo {
+    overflow: hidden;
+    border-radius: 20px;
+    max-width: 300px;
+    aspect-ratio: 9/16; 
+    margin: 0 auto;
+    position: relative;
+    background-color: #000;
+    cursor: pointer; 
+}
+
+
+.innerVideo video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s ease;
+}
+
+/* Zoom suave al hover */
+.innerVideo:hover video,
+.innerVideo:focus-within video {
+    transform: scale(1.05);
+}
+
+.innerVideo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.1) 0%,
+        rgba(0, 0, 0, 0) 20%,
+        rgba(0, 0, 0, 0.2) 50%,
+        rgba(0, 0, 0, 0.8) 80%,
+        rgba(0, 0, 0, 0.95) 100%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+.innerVideo .contentBottom {
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none; 
+}
+
+.innerVideo .contentBottom > * {
+    pointer-events: auto;
+}
+
+.innerVideo .contentBottom .head {
+    margin-bottom: 12px;
+    text-align: left;
+    color: #fff;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.username-tag {
+    font-family: "Figtree", sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.5px;
+    margin-right: 6px;
+}
+
+.video-desc {
+    font-size: 13px;
+    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.9);
+    margin-top: 4px;
+    font-weight: 400;
+}
+
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+    flex: 1;
+}
+
+.stat-item i {
+    font-size: 16px;
+    margin-bottom: 4px;
+    opacity: 0.9;
+}
+
+.stat-item span {
+    font-weight: 600;
+    opacity: 0.9;
+}
+
+.botones-tiktok {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 100%;
+}
+
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 12px;
+    border-radius: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    font-family: "Figtree", sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-decoration: none;
+    border: none;
+    gap: 6px;
+}
+
+.btn-tiktok-glass {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-tiktok-glass:hover {
+    background: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+.btn-product-solid {
+    background-color: #d01e26; 
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(208, 30, 38, 0.4);
+}
+
+.btn-product-solid:hover {
+    background-color: #b0141b;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(208, 30, 38, 0.5);
+}
+
+.botones-tiktok.single-btn {
+    grid-template-columns: 1fr;
+}
+
+.btn-playpause-overlay {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9);
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    color: #fff;
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 20;
+    pointer-events: none; 
+}
+
+.innerVideo:hover .btn-playpause-overlay,
+.innerVideo:focus-within .btn-playpause-overlay,
+.btn-playpause-overlay.visible {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    pointer-events: auto;
+}
+
+.btn-playpause-overlay:hover {
+    background: rgba(208, 30, 38, 0.8);
+    border-color: transparent;
+}
+
+.btn-mute-floating {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(4px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 25;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 14px;
+}
+
+.btn-mute-floating:hover {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.text-suspensory-2lines {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+}
+
+.btn-explore-pill {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 32px;
+    background: #fff;
+    color: #000;
+    border-radius: 100px;
+    font-family: "Figtree", sans-serif;
+    font-weight: 700;
+    font-size: 16px;
+    text-decoration: none;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 2px solid transparent;
+    cursor: pointer;
+}
+
+.btn-explore-pill:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+    border-color: #d01e26;
+    color: #d01e26;
+}
+
+.btn-explore-pill i {
+    margin-left: 8px;
+}
+
+@media (max-width: 768px) {
+    .innerVideo {
+        max-width: 95vw;
+        max-height: 70vh;
+        border-radius: 16px;
+    }
+    .stats-row {
+        margin-bottom: 10px;
+        padding-top: 8px;
+    }
+    .btn-action {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    @media (hover: none) and (pointer: coarse) {
+        .btn-playpause-overlay {
+            opacity: 1;
+            pointer-events: auto;
+        }
+    }
+}

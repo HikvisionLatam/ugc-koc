@@ -1,12 +1,7 @@
-/**
- * components/Stats.tsx
- * Tarjetas de estadísticas — total videos, activos, pausados, landings
- */
 import { supabaseAdmin } from '@/lib/supabase'
 import styles from './Stats.module.css'
 
 export async function Stats() {
-  // Queries paralelas para las estadísticas
   const [
     { count: totalVideos },
     { count: activeVideos },
@@ -21,32 +16,54 @@ export async function Stats() {
 
   const items = [
     {
-      label:   'Total videos',
-      value:   totalVideos ?? 0,
-      sub:     'en el sistema',
-      icon:    '🎬',
-      accent:  false,
+      label:  'Total videos',
+      value:  totalVideos ?? 0,
+      sub:    'en el sistema',
+      accent: false,
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="2" y="2" width="20" height="20" rx="3" />
+          <polygon points="10,8 16,12 10,16" fill="currentColor" stroke="none" />
+        </svg>
+      ),
     },
     {
-      label:   'Activos',
-      value:   activeVideos ?? 0,
-      sub:     'visibles en iframe',
-      icon:    '✅',
-      accent:  true,
+      label:  'Activos',
+      value:  activeVideos ?? 0,
+      sub:    'visibles en iframe',
+      accent: true,
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9 12l2 2 4-4" />
+        </svg>
+      ),
     },
     {
-      label:   'Pausados',
-      value:   pausedVideos ?? 0,
-      sub:     'temporalmente ocultos',
-      icon:    '⏸',
-      accent:  false,
+      label:  'Pausados',
+      value:  pausedVideos ?? 0,
+      sub:    'temporalmente ocultos',
+      accent: false,
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <circle cx="12" cy="12" r="10" />
+          <line x1="10" y1="9" x2="10" y2="15" />
+          <line x1="14" y1="9" x2="14" y2="15" />
+        </svg>
+      ),
     },
     {
-      label:   'Landings',
-      value:   totalLandings ?? 0,
-      sub:     'páginas configuradas',
-      icon:    '🌐',
-      accent:  false,
+      label:  'Landings',
+      value:  totalLandings ?? 0,
+      sub:    'páginas configuradas',
+      accent: false,
+      icon: (
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <line x1="3" y1="9" x2="21" y2="9" />
+          <line x1="9" y1="21" x2="9" y2="9" />
+        </svg>
+      ),
     },
   ]
 

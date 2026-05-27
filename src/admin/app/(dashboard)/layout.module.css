@@ -1,0 +1,11 @@
+.shell {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main {
+  margin-left: 220px;
+  flex: 1;
+  min-height: 100vh;
+  background: var(--bg-base);
+}

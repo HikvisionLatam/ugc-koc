@@ -1,7 +1,3 @@
-/**
- * components/VideoTable.tsx
- * Tabla de videos con acciones — pausar, activar, eliminar, editar link
- */
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
@@ -16,20 +12,18 @@ type VideoWithLandings = Video & {
 type FilterStatus = 'all' | 'active' | 'paused' | 'deleted'
 
 export function VideoTable() {
-  const [videos, setVideos]     = useState<VideoWithLandings[]>([])
-  const [loading, setLoading]   = useState(true)
-  const [filter, setFilter]     = useState<FilterStatus>('all')
-  const [search, setSearch]     = useState('')
-  const [page, setPage]         = useState(1)
+  const [videos, setVideos]   = useState<VideoWithLandings[]>([])
+  const [loading, setLoading] = useState(true)
+  const [filter, setFilter]   = useState<FilterStatus>('all')
+  const [search, setSearch]   = useState('')
+  const [page, setPage]       = useState(1)
   const PER_PAGE = 20
 
   const fetchVideos = useCallback(async () => {
     setLoading(true)
     try {
-      let url = '/api/ugc/videos'
-      if (filter !== 'all') url += `?status=${filter}`
-
-      const res  = await fetch(url)
+      const url = filter !== 'all' ? `/api/ugc/videos?status=${filter}` : '/api/ugc/videos'
+      const res = await fetch(url)
       const data = await res.json()
       setVideos(Array.isArray(data) ? data : [])
     } catch {
@@ -41,43 +35,36 @@ export function VideoTable() {
 
   useEffect(() => { fetchVideos() }, [fetchVideos])
 
-  // Filter by search
   const filtered = videos.filter(v =>
     v.tiktok_url.toLowerCase().includes(search.toLowerCase()) ||
     v.description?.toLowerCase().includes(search.toLowerCase())
   )
 
-  const paginated = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
+  const paginated  = filtered.slice((page - 1) * PER_PAGE, page * PER_PAGE)
   const totalPages = Math.ceil(filtered.length / PER_PAGE)
 
-  // Acciones
   async function handleStatus(videoId: string, newStatus: 'active' | 'paused') {
     const res = await fetch(`/api/ugc/videos/${videoId}`, {
       method:  'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body:    JSON.stringify({ status: newStatus }),
     })
-
     if (res.ok) {
       toast.success(`Video ${newStatus === 'active' ? 'activado' : 'pausado'}`)
       fetchVideos()
     } else {
-      toast.error('Error al actualizar video')
+      toast.error('Error al actualizar')
     }
   }
 
   async function handleDelete(videoId: string) {
-    if (!confirm('¿Pausar este video? Lo eliminarás del iframe.')) return
-    const res = await fetch(`/api/ugc/videos/${videoId}`, {
-      method:  'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-    })
-
+    if (!confirm('¿Eliminar este video del iframe?')) return
+    const res = await fetch(`/api/ugc/videos/${videoId}`, { method: 'DELETE' })
     if (res.ok) {
-      toast.success('Video pausado')
+      toast.success('Video eliminado')
       fetchVideos()
     } else {
-      toast.error('Error al pausar video')
+      toast.error('Error al eliminar')
     }
   }
 
@@ -95,7 +82,7 @@ export function VideoTable() {
       {/* Toolbar */}
       <div className={styles.toolbar}>
         <div className={styles.searchWrapper}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className={styles.searchIcon}>
+          <svg className={styles.searchIcon} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
           </svg>
           <input
@@ -128,15 +115,15 @@ export function VideoTable() {
       {/* Empty state */}
       {paginated.length === 0 && (
         <div className={styles.empty}>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
             <rect x="2" y="2" width="20" height="20" rx="4" />
-            <path d="M10 8l6 4-6 4V8z" />
+            <polygon points="10,8 16,12 10,16" />
           </svg>
-          <h3>No hay videos {filter !== 'all' ? filter : ''}</h3>
+          <h3>No hay videos{filter !== 'all' ? ` ${filter}s` : ''}</h3>
           <p>
             {filter !== 'all'
               ? 'Cambia el filtro para ver más resultados.'
-              : 'Agrega tu primer video TikTok con el formulario de arriba.'}
+              : 'Agrega el primer video con la pestaña Agregar.'}
           </p>
         </div>
       )}
@@ -158,20 +145,19 @@ export function VideoTable() {
               <tbody>
                 {paginated.map(video => (
                   <tr key={video.id}>
-                    {/* Thumbnail + info */}
                     <td>
                       <div className={styles.videoCell}>
                         {video.thumbnail_url ? (
                           <img
                             src={video.thumbnail_url}
-                            alt={video.description ?? 'Thumbnail'}
+                            alt=""
                             className={styles.thumb}
                             loading="lazy"
                           />
                         ) : (
                           <div className={styles.thumbPlaceholder}>
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                              <path d="M10 8l6 4-6 4V8z" />
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                              <polygon points="5,3 19,12 5,21" />
                             </svg>
                           </div>
                         )}
@@ -183,7 +169,7 @@ export function VideoTable() {
                             className={styles.tiktokLink}
                           >
                             /video/{video.tiktok_id}
-                            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                               <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
                             </svg>
                           </a>
@@ -194,60 +180,64 @@ export function VideoTable() {
                       </div>
                     </td>
 
-                    {/* Stats */}
                     <td>
                       <div className={styles.stats}>
-                        <Stat icon="👁" value={video.views}    label="views" />
-                        <Stat icon="❤" value={video.likes}     label="likes" />
-                        <Stat icon="💬" value={video.comments}  label="comments" />
+                        <Stat value={video.views} label="views" icon={
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                            <circle cx="12" cy="12" r="3" />
+                          </svg>
+                        } />
+                        <Stat value={video.likes} label="likes" icon={
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+                          </svg>
+                        } />
+                        <Stat value={video.comments} label="comentarios" icon={
+                          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                            <path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" />
+                          </svg>
+                        } />
                       </div>
                     </td>
 
-                    {/* Landings */}
                     <td>
                       <div className={styles.landings}>
                         {video.video_landings?.map(vl => (
                           <span key={vl.id} className={styles.landingBadge}>
-                            {vl.landings?.websites?.flag ?? '🌎'} {vl.landings?.name ?? vl.landing_id}
+                            {vl.landings?.websites?.flag ?? ''} {vl.landings?.name ?? vl.landing_id}
                           </span>
                         )) ?? <span className={styles.noDesc}>Sin landing</span>}
                       </div>
                     </td>
 
-                    {/* Status */}
                     <td>
                       <span className={`badge badge-${video.status}`}>
-                        <span className={`status-dot ${video.status === 'active' ? 'online' : video.status === 'paused' ? 'warning' : ''}`} />
+                        <span className={`status-dot ${video.status === 'active' ? 'online' : video.status === 'paused' ? 'warning' : 'error'}`} />
                         {video.status === 'active' ? 'Activo' : video.status === 'paused' ? 'Pausado' : 'Eliminado'}
                       </span>
                     </td>
 
-                    {/* Actions */}
                     <td>
                       <div className={styles.actions}>
                         {video.status === 'active' ? (
-                          <button
-                            className="btn btn-ghost btn-sm"
-                            onClick={() => handleStatus(video.id, 'paused')}
-                            title="Pausar video"
-                          >
-                            ⏸ Pausar
+                          <button className="btn btn-ghost btn-sm" onClick={() => handleStatus(video.id, 'paused')}>
+                            Pausar
                           </button>
                         ) : video.status === 'paused' ? (
-                          <button
-                            className="btn btn-ghost btn-sm"
-                            onClick={() => handleStatus(video.id, 'active')}
-                            title="Activar video"
-                          >
-                            ▶ Activar
+                          <button className="btn btn-ghost btn-sm" onClick={() => handleStatus(video.id, 'active')}>
+                            Activar
                           </button>
                         ) : null}
                         <button
-                          className="btn btn-ghost btn-sm"
+                          className="btn btn-ghost btn-sm btn-icon"
                           onClick={() => handleDelete(video.id)}
-                          title="Pausar video"
+                          title="Eliminar video"
                         >
-                          🗑
+                          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                            <polyline points="3 6 5 6 21 6" />
+                            <path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a1 1 0 011-1h4a1 1 0 011 1v2" />
+                          </svg>
                         </button>
                       </div>
                     </td>
@@ -257,24 +247,13 @@ export function VideoTable() {
             </table>
           </div>
 
-          {/* Pagination */}
           {totalPages > 1 && (
             <div className={styles.pagination}>
-              <button
-                className="btn btn-secondary btn-sm"
-                disabled={page === 1}
-                onClick={() => setPage(p => p - 1)}
-              >
+              <button className="btn btn-secondary btn-sm" disabled={page === 1} onClick={() => setPage(p => p - 1)}>
                 ← Anterior
               </button>
-              <span className={styles.pageInfo}>
-                {page} de {totalPages}
-              </span>
-              <button
-                className="btn btn-secondary btn-sm"
-                disabled={page === totalPages}
-                onClick={() => setPage(p => p + 1)}
-              >
+              <span className={styles.pageInfo}>{page} / {totalPages}</span>
+              <button className="btn btn-secondary btn-sm" disabled={page === totalPages} onClick={() => setPage(p => p + 1)}>
                 Siguiente →
               </button>
             </div>
@@ -285,11 +264,12 @@ export function VideoTable() {
   )
 }
 
-function Stat({ icon, value, label }: { icon: string; value: number; label: string }) {
+function Stat({ icon, value, label }: { icon: React.ReactNode; value: number; label: string }) {
+  const fmt = (n: number) => n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n)
   return (
     <div className={styles.stat} title={`${value} ${label}`}>
-      <span>{icon}</span>
-      <span>{value >= 1000 ? `${(value / 1000).toFixed(1)}k` : value}</span>
+      {icon}
+      <span>{fmt(value)}</span>
     </div>
   )
 }

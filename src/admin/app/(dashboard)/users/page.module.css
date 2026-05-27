@@ -1,0 +1,257 @@
+.page {
+  padding: 40px 48px;
+  max-width: 780px;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.sectionLabel {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+}
+
+.sectionCount {
+  font-size: 11px;
+  color: var(--text-muted);
+  background: var(--bg-elevated);
+  padding: 1px 6px;
+  border-radius: var(--radius-full);
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--bg-surface);
+}
+
+.userRow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.userRow:last-child {
+  border-bottom: none;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.role_admin {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.role_editor {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.role_viewer {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.userInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.userName {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.userScope {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.roleBadge {
+  padding: 3px 8px;
+  border-radius: var(--radius-full);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  flex-shrink: 0;
+}
+
+.badge_admin {
+  background: var(--error-bg);
+  color: var(--error);
+}
+
+.badge_editor {
+  background: var(--info-bg);
+  color: var(--info);
+}
+
+.badge_viewer {
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+}
+
+.permissionsSection {
+  margin-top: 0;
+}
+
+.permTable {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.permHeader {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 80px);
+  padding: 10px 20px;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border);
+}
+
+.permRow {
+  display: grid;
+  grid-template-columns: 1fr repeat(3, 80px);
+  padding: 10px 20px;
+  border-bottom: 1px solid var(--border);
+  align-items: center;
+}
+
+.permRow:last-child {
+  border-bottom: none;
+}
+
+.permHeader .permCell {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.permHeader .permCell:first-child {
+  text-align: left;
+}
+
+.permLabel {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.permCell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.permYes {
+  width: 20px;
+  height: 20px;
+  background: var(--success-bg);
+  color: var(--success);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.permNo {
+  width: 20px;
+  height: 20px;
+  background: var(--bg-elevated);
+  color: var(--text-muted);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  padding: 56px;
+  text-align: center;
+  color: var(--text-muted);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+}
+
+.empty p {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.accessNote {
+  font-size: 13px;
+  color: var(--text-secondary);
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: 24px 20px;
+  }
+
+  .permHeader,
+  .permRow {
+    grid-template-columns: 1fr repeat(3, 60px);
+    padding: 10px 14px;
+  }
+}

@@ -1,0 +1,142 @@
+/**
+ * RadialMenu.module.css
+ * GSAP elastic FAB — dark theme, green accent
+ * --green: #0ae448  --black: #0e100f  --white: #fffce1
+ */
+
+/* ── Backdrop ──────────────────────────────────────── */
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 39;
+  background: transparent;
+  /* no bg — just catches outside clicks */
+}
+
+/* ── Anchor: FAB + items all share the same origin ── */
+.anchor {
+  position: fixed;
+  bottom: 28px;
+  left: 256px;   /* right edge of sidebar (220px) + 36px offset */
+  z-index: 50;
+  /* All children are absolute from this point */
+}
+
+/* ── Main FAB ─────────────────────────────────────── */
+.fab {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #0e100f;
+  position: relative;
+  z-index: 2;
+
+  background: linear-gradient(135deg, #0ae448 0%, #06c83a 100%);
+  box-shadow:
+    0 4px 20px rgba(10, 228, 72, 0.4),
+    0 2px 8px  rgba(0,0,0,.25);
+
+  transition:
+    box-shadow 200ms,
+    background 200ms;
+}
+
+.fab:hover {
+  box-shadow:
+    0 6px 28px rgba(10, 228, 72, 0.55),
+    0 3px 12px rgba(0,0,0,.3);
+}
+
+.fab:active {
+  transform: scale(.94);
+}
+
+.fab svg {
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.fabOpen svg {
+  transform: rotate(45deg);
+}
+
+/* ── Item buttons ─────────────────────────────────── */
+.item {
+  position: absolute;
+  top:  50%;
+  left: 50%;
+  /* offset to center the 40px button on the anchor point */
+  margin-top: -20px;
+  margin-left: -20px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.12);
+  background: #161918;
+  color: #fffce1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+  box-shadow: 0 4px 16px rgba(0,0,0,.35);
+  transition: background 160ms, box-shadow 160ms;
+  /* GSAP sets x/y — don't add transform transitions */
+}
+
+.item:hover {
+  background: #222824;
+  box-shadow:
+    0 6px 22px rgba(0,0,0,.5),
+    0 0 0 1px rgba(10,228,72,.35);
+  color: #0ae448;
+}
+
+.item:active {
+  background: #1a201c;
+}
+
+/* ── Tooltip label ─────────────────────────────────── */
+.itemLabel {
+  position: absolute;
+  /* Default: label above the item button.
+     For angle=0 (right), we flip it below. */
+  bottom: calc(100% + 7px);
+  left:   50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-size: 11px;
+  font-weight: 600;
+  color: #fffce1;
+  background: rgba(14,16,15,.85);
+  border: 1px solid rgba(255,255,255,.1);
+  backdrop-filter: blur(8px);
+  padding: 4px 9px;
+  border-radius: 6px;
+  letter-spacing: .02em;
+  pointer-events: none;
+}
+
+/* ── Pulse ring on open ───────────────────────────── */
+@keyframes rm-ring {
+  0%   { transform: scale(1);   opacity: .55; }
+  100% { transform: scale(1.75); opacity: 0; }
+}
+
+.fab::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 2px solid #0ae448;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.fabOpen::after {
+  animation: rm-ring 0.45s ease-out forwards;
+}
